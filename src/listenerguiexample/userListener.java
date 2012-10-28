@@ -4,14 +4,40 @@
  */
 package listenerguiexample;
 
+import java.awt.event.*;
+
 /**
  *
  * @author johannes
  */
 public class userListener {
     mainGui MyMainGui;
+    userGui MyUserGui;
     public userListener(mainGui MyMainGui){
-        this.MyMainGui=MyMainGui;  
+       //create views
+        MyUserGui = new userGui();
+        this.MyMainGui = MyMainGui;
+        //add listeners
+        MyMainGui.addUserListener(new userButtonListener());
+        MyUserGui.addLogoutListener(new logoutButtonListener());
+    }
+
+    class userButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            MyMainGui.setVisible(false);
+            MyUserGui.setVisible(true);
+        }
+    }
+
+    class logoutButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            MyMainGui.setVisible(true);
+            MyUserGui.setVisible(false);
+        }
     }
     
 }

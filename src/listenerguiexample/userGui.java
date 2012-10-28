@@ -4,6 +4,8 @@
  */
 package listenerguiexample;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author johannes
@@ -85,6 +87,10 @@ public class userGui extends javax.swing.JFrame {
                 new userGui().setVisible(true);
             }
         });
+    }
+
+    public void addLogoutListener(ActionListener al) {
+        logout.addActionListener(al);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton logout;
