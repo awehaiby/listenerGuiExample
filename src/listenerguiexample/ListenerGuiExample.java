@@ -1,6 +1,8 @@
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
+ * efter glimrende eksempel på mvc fra
+ * http://www.leepoint.net/notes-java/GUI/structure/40mvc.html
  */
 package listenerguiexample;
 
@@ -16,7 +18,10 @@ public class ListenerGuiExample {
     public static void main(String[] args) {
         mainGui main = new mainGui();
         adminListener admin = new adminListener(main);
-        
+        userListener user = new userListener(main);
+        main.setVisible(true);
+
+
         // TODO code application logic here
     }
 }

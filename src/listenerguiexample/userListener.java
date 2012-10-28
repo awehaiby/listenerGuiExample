@@ -4,12 +4,14 @@
  */
 package listenerguiexample;
 
-import java.awt.event.ActionListener;
-
 /**
  *
  * @author johannes
  */
-public interface myListener  extends ActionListener{
+public class userListener {
+    mainGui MyMainGui;
+    public userListener(mainGui MyMainGui){
+        this.MyMainGui=MyMainGui;  
+    }
     
 }
