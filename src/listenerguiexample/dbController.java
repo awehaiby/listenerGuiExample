@@ -209,6 +209,7 @@ public class dbController {
         //sql query set status by rfid (status)
         //this.status = status;
         int credits = get_credits(rfid);
+        setCredits(rfid,credits);
         try {
             Connection con = DriverManager.getConnection(host, uName, uPass);
             Statement stmt;
