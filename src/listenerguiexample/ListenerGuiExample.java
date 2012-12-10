@@ -6,6 +6,11 @@
  */
 package listenerguiexample;
 
+import controller.RFIDEventManagerSimple;
+import java.util.TooManyListenersException;
+import protocol.TcsPacket;
+import serial.SerialTransceiver;
+
 /**
  *
  * @author johannes
@@ -15,12 +20,26 @@ public class ListenerGuiExample {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        mainGui main = new mainGui();
-        adminListener admin = new adminListener(main);
-        userListener user = new userListener(main);
-        main.setVisible(true);
+    public static void main(String[] args) throws Exception {
+                mainGui main = new mainGui();
 
+                dbController db;
+        db=new dbController();
+        
+                RFIDEventManagerSimple rFIDEventManagerSimple = new RFIDEventManagerSimple(main,db);
+        //Construct another SerialTransceiver for the RFIDEventManager
+        SerialTransceiver rFIDEventManagerTransceiver = new SerialTransceiver(new TcsPacket(), rFIDEventManagerSimple);
+        //Set the transmitter for the RFIDManagerSimple
+        rFIDEventManagerSimple.setTransmitter(rFIDEventManagerTransceiver);
+
+        //Open the RFIDEventManager server port - it waits for messages from
+        //the Card Reader
+        rFIDEventManagerSimple.openPort();
+        
+        adminListener admin = new adminListener(main, rFIDEventManagerSimple,db);
+        userListener user = new userListener(main,db);
+        
+        main.setVisible(true);
 
         // TODO code application logic here
     }

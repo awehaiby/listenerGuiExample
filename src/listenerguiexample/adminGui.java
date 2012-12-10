@@ -28,15 +28,15 @@ public class adminGui extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        createUser = new javax.swing.JButton();
+        viewDeleteUser = new javax.swing.JButton();
         logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("opret");
+        createUser.setText("create user");
 
-        jButton2.setText("jButton2");
+        viewDeleteUser.setText("view/delete user");
 
         logout.setText("log ud");
 
@@ -46,9 +46,9 @@ public class adminGui extends javax.swing.JFrame {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jButton1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 145, Short.MAX_VALUE)
-                .add(jButton2)
+                .add(createUser)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 58, Short.MAX_VALUE)
+                .add(viewDeleteUser)
                 .add(75, 75, 75))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -62,8 +62,8 @@ public class adminGui extends javax.swing.JFrame {
                 .add(logout)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 180, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton1)
-                    .add(jButton2))
+                    .add(createUser)
+                    .add(viewDeleteUser))
                 .add(37, 37, 37))
         );
 
@@ -107,9 +107,15 @@ public class adminGui extends javax.swing.JFrame {
         public void addLogoutListener(ActionListener al){
         logout.addActionListener(al);
     }
+        public void addCreateUserListener(ActionListener al){
+        createUser.addActionListener(al);
+    }
+        public void addViewDeleteUserListener(ActionListener al){
+            viewDeleteUser.addActionListener(al);
+        }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton createUser;
     private javax.swing.JButton logout;
+    private javax.swing.JButton viewDeleteUser;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,8 +13,10 @@ import java.awt.event.*;
 public class userListener {
     mainGui MyMainGui;
     userGui MyUserGui;
-    public userListener(mainGui MyMainGui){
+    dbController db;
+    public userListener(mainGui MyMainGui,dbController db){
        //create views
+        this.db=db;
         MyUserGui = new userGui();
         this.MyMainGui = MyMainGui;
         //add listeners
