@@ -30,10 +30,8 @@ public class viewDeleteUser extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
-        name = new javax.swing.JTextField();
-        sirName = new javax.swing.JTextField();
+        rfid = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         submit = new javax.swing.JButton();
         backToAdmin = new javax.swing.JButton();
         clear = new javax.swing.JButton();
@@ -44,9 +42,7 @@ public class viewDeleteUser extends javax.swing.JFrame {
         textArea.setRows(5);
         jScrollPane1.setViewportView(textArea);
 
-        jLabel1.setText("name");
-
-        jLabel2.setText("sir name");
+        jLabel1.setText("rfid");
 
         submit.setText("submit");
 
@@ -62,23 +58,17 @@ public class viewDeleteUser extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(0, 144, Short.MAX_VALUE))
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel1)
-                            .add(jLabel2))
-                        .add(26, 26, 26)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(sirName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                            .add(name))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(backToAdmin)))
+                        .add(jLabel1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(rfid, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(submit))
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(backToAdmin)
                 .addContainerGap())
             .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(submit)
-                    .add(clear))
+                .add(clear)
                 .add(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -86,24 +76,18 @@ public class viewDeleteUser extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
+                        .add(17, 17, 17)
+                        .add(backToAdmin))
+                    .add(layout.createSequentialGroup()
                         .addContainerGap()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(name, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel1))
+                            .add(rfid, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel1)
+                            .add(submit))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(sirName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel2)))
-                    .add(layout.createSequentialGroup()
-                        .add(17, 17, 17)
-                        .add(backToAdmin)))
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 72, Short.MAX_VALUE)
-                .add(clear)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(submit)
-                .addContainerGap())
+                .add(clear))
         );
 
         pack();
@@ -143,10 +127,10 @@ public class viewDeleteUser extends javax.swing.JFrame {
             }
         });
     }
-    public void clearAll(){
+
+    public void clearAll() {
         textArea.setText("");
-        name.setText("");
-        sirName.setText("");
+        rfid.setText("");
     }
 
     public void addBackToAdminListener(ActionListener al) {
@@ -156,27 +140,24 @@ public class viewDeleteUser extends javax.swing.JFrame {
     public void setText(String text) {
         textArea.setText(text);
     }
-    public void addSubmitListener(ActionListener al){
+
+    public void addSubmitListener(ActionListener al) {
         submit.addActionListener(al);
     }
-    public String getNameString(){
-        return name.getText();
+
+    public String getRfidString() {
+        return rfid.getText();
     }
-    public String getSirNameString(){
-        return sirName.getText();
-    }
-    public void addClearListener(ActionListener al){
+
+    public void addClearListener(ActionListener al) {
         clear.addActionListener(al);
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToAdmin;
     private javax.swing.JButton clear;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField name;
-    private javax.swing.JTextField sirName;
+    private javax.swing.JTextField rfid;
     private javax.swing.JButton submit;
     private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables

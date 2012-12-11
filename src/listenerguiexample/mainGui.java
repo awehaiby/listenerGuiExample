@@ -28,34 +28,42 @@ public class mainGui extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        adminButton = new javax.swing.JButton();
-        userButton = new javax.swing.JButton();
+        login = new javax.swing.JButton();
+        rfid = new javax.swing.JTextField();
+        password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        adminButton.setText("admin");
+        login.setText("login");
 
-        userButton.setText("user");
+        rfid.setText("rfid");
+
+        password.setText("jPasswordField1");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(37, 37, 37)
-                .add(adminButton)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 151, Short.MAX_VALUE)
-                .add(userButton)
-                .add(54, 54, 54))
+            .add(layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(login)
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(password)
+                            .add(rfid))))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(148, Short.MAX_VALUE)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(userButton)
-                    .add(adminButton))
-                .add(123, 123, 123))
+                .addContainerGap()
+                .add(rfid, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(password, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(login)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,16 +103,26 @@ public class mainGui extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void addAdminListener(ActionListener al){
-        adminButton.addActionListener(al);
+
+    public void addLoginListener(ActionListener al) {
+        login.addActionListener(al);
     }
-    
-    public void addUserListener(ActionListener al){
-        userButton.addActionListener(al);
+
+    public String getRfid() {
+        return rfid.getText();
+    }
+
+    public String getPassword() {
+        return new String(password.getPassword());
+    }
+
+    public void clear() {
+        rfid.setText("rfid    ");
+        password.setText("********");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton adminButton;
-    private javax.swing.JButton userButton;
+    private javax.swing.JButton login;
+    private javax.swing.JPasswordField password;
+    private javax.swing.JTextField rfid;
     // End of variables declaration//GEN-END:variables
 }

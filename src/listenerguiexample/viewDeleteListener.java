@@ -55,25 +55,19 @@ public class viewDeleteListener {
     }
 
     class clearListener implements ActionListener {
-        
-         @Override
-         public void actionPerformed(ActionEvent ae) {
-         //myViewDeleteGui.clearAll();
-                 String name = myViewDeleteGui.getNameString();
-        String sirname = myViewDeleteGui.getSirNameString();
-        String rfid = db.getRfidByName(name, sirname);
-        boolean stat = db.setStatus(rfid,!db.getStatus(rfid));
-         }
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            myViewDeleteGui.clearAll();
+        }
     }
 
     class submitListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            String name = myViewDeleteGui.getNameString();
-            String sirname = myViewDeleteGui.getSirNameString();
+            String rfid = myViewDeleteGui.getRfidString();
 
-            String rfid = db.getRfidByName(name, sirname);
             int credits = db.get_credits(rfid);
             boolean status = db.getStatus(rfid);
             System.out.println(rfid + " " + credits + " " + status);

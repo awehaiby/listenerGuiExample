@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Date.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,31 +29,31 @@ public class dbController {
 
     dbController() {//connects to database
     }
+    /*
+     public String getRfidByName(String name, String sirname) {
+     try {
+     Connection con = DriverManager.getConnection(host, uName, uPass);
 
-    public String getRfidByName(String name, String sirname) {
-        try {
-            Connection con = DriverManager.getConnection(host, uName, uPass);
+     Statement stmt1;
+     stmt1 = (Statement) con.createStatement();
+     String sql = "select * from \"APP\".\"USER\" where \"FIRSTNAME\" = '" + name + "' AND \"LASTNAME\" = '" + sirname + "'";
 
-            Statement stmt1;
-            stmt1 = (Statement) con.createStatement();
-            String sql = "select * from \"APP\".\"USER\" where \"FIRSTNAME\" = '" + name + "' AND \"LASTNAME\" = '" + sirname + "'";
+     ResultSet rs = stmt1.executeQuery(sql);
+     String fn = "";
+     while (rs.next()) {
+     fn = rs.getString("RFID");
+     }
+     return fn;
 
-            ResultSet rs = stmt1.executeQuery(sql);
-            String fn = "";
-            while (rs.next()) {
-                fn = rs.getString("RFID");
-            }
-            return fn;
+     } catch (SQLException err) {
+     System.out.println(err.getMessage());
 
-        } catch (SQLException err) {
-            System.out.println(err.getMessage());
+     }
+     return "";
 
-        }
-        return "";
-
-        //return sql query get rfid by name;
-    }
-
+     //return sql query get rfid by name;
+     }
+     */
     /*public boolean exists(String rfid) {
      try {
      Connection con = DriverManager.getConnection(host, uName, uPass);
@@ -76,6 +77,7 @@ public class dbController {
      //return sql query does this rfid exist in database?
      }
      */
+
     public boolean getStatus(String rfid) {
         int credits = get_credits(rfid);
         boolean status = false;
@@ -133,6 +135,32 @@ public class dbController {
             stmt1.executeUpdate("UPDATE \"APP\".\"USER\" SET \"CREDITS\" = '" + minutes + "' WHERE \"RFID\" = '" + rfid + "'"); //UPDATE en tabel */
 
 
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+
+        }
+    }
+    //gui call
+    //makeUserLogTable(rfid,(DefaultTableModel) travelLog.getModel())
+
+    public void makeUserLogTable(String rfid, DefaultTableModel model) {
+        for (int i = model.getRowCount() - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+        try {
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+
+            Statement stmt1;
+            stmt1 = (Statement) con.createStatement();
+            String sql = "select * from \"APP\".\"TRAVELLOG\" where \"RFID\" = '" + rfid + "'";
+
+            ResultSet rs = stmt1.executeQuery(sql);
+            while (rs.next()) {
+                String d1 = rs.getString("CHECKIN");
+                String d2 = rs.getString("CHECKOUT");
+                String d3 = rs.getString("TRAVELTIME");
+                model.addRow(new Object[]{d1, d2, d3});
+            }
         } catch (SQLException err) {
             System.out.println(err.getMessage());
 
@@ -246,8 +274,7 @@ public class dbController {
         return status;
     }
 
-    boolean login(String firstName, String lastName, String password, int admin) {
-        String rfid = getRfidByName(firstName, lastName);
+    public boolean isAdmin(String rfid) {
         boolean returner = false;
         try {
             Connection con = DriverManager.getConnection(host, uName, uPass);
@@ -258,11 +285,33 @@ public class dbController {
 
             ResultSet rs = stmt1.executeQuery(sql);
             while (rs.next()) {
-                if (admin == Integer.parseInt(rs.getString("ADMIN"))) {
-                    if (password.equals(rs.getString("PASSWORD"))) {
-                        returner=true;
-                    }
+                if (Integer.parseInt(rs.getString("ADMIN")) == 1) {
+                    returner = true;
                 }
+
+            }
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+
+        }
+        return returner;
+    }
+
+    boolean login(String rfid, String password) {
+        boolean returner = false;
+        try {
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+
+            Statement stmt1;
+            stmt1 = (Statement) con.createStatement();
+            String sql = "select * from \"APP\".\"USER\" where \"RFID\" = '" + rfid + "'";
+
+            ResultSet rs = stmt1.executeQuery(sql);
+            while (rs.next()) {
+                if (password.equals(rs.getString("PASSWORD"))) {
+                    returner = true;
+                }
+
             }
         } catch (SQLException err) {
             System.out.println(err.getMessage());
