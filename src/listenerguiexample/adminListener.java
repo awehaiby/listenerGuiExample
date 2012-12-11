@@ -29,7 +29,7 @@ public class adminListener {
         this.MyMainGui = MyMainGui;
         this.rFIDEventManagerSimple = rFIDEventManagerSimple;
         myviewDeleteListener = new viewDeleteListener(MyAdminGui, db);
-        createUser = new CreateUserListener(MyAdminGui);
+        createUser = new CreateUserListener(MyAdminGui,db);
         rFIDEventManagerSimple.setCreateUserListener(createUser);
         //add listeners
         this.MyMainGui.addLoginListener(new loginButtonListener());

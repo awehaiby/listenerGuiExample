@@ -35,6 +35,7 @@ public class viewDeleteUser extends javax.swing.JFrame {
         submit = new javax.swing.JButton();
         backToAdmin = new javax.swing.JButton();
         clear = new javax.swing.JButton();
+        deleteUser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,6 +50,8 @@ public class viewDeleteUser extends javax.swing.JFrame {
         backToAdmin.setText("back to admin");
 
         clear.setText("clear");
+
+        deleteUser.setText("delete user");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,7 +68,9 @@ public class viewDeleteUser extends javax.swing.JFrame {
                         .add(submit))
                     .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(backToAdmin)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(backToAdmin)
+                    .add(deleteUser))
                 .addContainerGap())
             .add(layout.createSequentialGroup()
                 .add(clear)
@@ -77,7 +82,9 @@ public class viewDeleteUser extends javax.swing.JFrame {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(17, 17, 17)
-                        .add(backToAdmin))
+                        .add(backToAdmin)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(deleteUser))
                     .add(layout.createSequentialGroup()
                         .addContainerGap()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -144,6 +151,9 @@ public class viewDeleteUser extends javax.swing.JFrame {
     public void addSubmitListener(ActionListener al) {
         submit.addActionListener(al);
     }
+        public void addDeleteListener(ActionListener al) {
+        deleteUser.addActionListener(al);
+    }
 
     public String getRfidString() {
         return rfid.getText();
@@ -155,6 +165,7 @@ public class viewDeleteUser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToAdmin;
     private javax.swing.JButton clear;
+    private javax.swing.JButton deleteUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField rfid;

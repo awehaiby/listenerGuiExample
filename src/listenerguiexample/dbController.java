@@ -54,29 +54,26 @@ public class dbController {
      //return sql query get rfid by name;
      }
      */
-    /*public boolean exists(String rfid) {
-     try {
-     Connection con = DriverManager.getConnection(host, uName, uPass);
 
-     Statement stmt1;
-     stmt1 = (Statement) con.createStatement();
-     String sql = "select * from \"APP\".\"USER\" where \"RFID\" = '"+rfid+"'";
+    public boolean exists(String rfid) {
+        boolean returner = false;
 
-     ResultSet rs = stmt1.executeQuery(sql);
-     boolean fn=false; 
-     while (rs.next()) {
-     fn = rs.
-     }
-     return fn;
+        try {
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt;
+            stmt = (Statement) con.createStatement();
+            String sql = "select * from \"APP\".\"USER\" where \"RFID\" = '" + rfid + "'";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                returner = true;
+            }
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
 
-     } catch (SQLException err) {
-     System.out.println(err.getMessage());
-
-     }
-     return false;
-     //return sql query does this rfid exist in database?
-     }
-     */
+        }
+        return returner;
+        //return sql query does this rfid exist in database?
+    }
 
     public boolean getStatus(String rfid) {
         int credits = get_credits(rfid);
@@ -121,12 +118,8 @@ public class dbController {
     }
 
     public void setCredits(String rfid, int cash) {
-        /*
-         * lav cash om til minutes. 
-         * tjek credits
-         * sæt credtis til credits+minutes
-         */
-        int minutes = cash;
+        //prisen er 0.5kr/1minut og metret runder ned
+        int minutes = cash * 2;
         try {
             Connection con = DriverManager.getConnection(host, uName, uPass);
             Statement stmt1;
@@ -139,6 +132,45 @@ public class dbController {
             System.out.println(err.getMessage());
 
         }
+    }
+
+    public void deleteUser(String rfid) {
+        try {
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt;
+
+            stmt = (Statement) con.createStatement();
+            stmt.executeUpdate("DELETE FROM \"APP\".\"USER\" WHERE \"RFID\" = '" + rfid + "'");// AND DELETE FROM \"APP\".\"TRAVELLOG\" WHERE \"RFID\" = '" + rfid + "'");
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+        }
+    }
+
+    boolean createUser(String rfid, String fn, String ln, String pw) {
+        boolean returner = true;
+        java.util.Date date = new java.util.Date();
+        Timestamp current = new Timestamp(date.getTime());
+        try {
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+            Statement stmt;
+
+            stmt = (Statement) con.createStatement();
+
+            String sql = "select * from \"APP\".\"USER\" where \"RFID\" = '" + rfid + "'";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                returner = false;
+            }
+            if (returner) {
+                stmt.executeUpdate("INSERT INTO \"APP\".\"USER\" (\"RFID\",\"ADMIN\",\"PASSWORD\",\"FIRSTNAME\",\"LASTNAME\",\"CREDITS\",\"STATUS\",\"CHECKIN\") VALUES ('" + rfid + "','0','" + pw + "','" + fn + "','" + ln + "','0','0','" + current + "')");
+            }
+
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+
+        }
+        return returner;
     }
     //gui call
     //makeUserLogTable(rfid,(DefaultTableModel) travelLog.getModel())
@@ -256,13 +288,14 @@ public class dbController {
             while (rs.next()) {
                 checkIn = rs.getTimestamp("CHECKIN");
             }
+            int diffInMinutes = (int) (current.getTime() - checkIn.getTime()) / 60000;
             if (status) {
                 if (credits > 0) {
                     stmt.executeUpdate("UPDATE \"APP\".\"USER\" SET \"CHECKIN\" = '" + current + "' WHERE RFID = '" + rfid + "'");
                     stmt.executeUpdate("UPDATE \"APP\".\"USER\" SET \"STATUS\" = '" + mySTATUS + "' WHERE RFID = '" + rfid + "'");
                 }
             } else {
-                stmt.executeUpdate("INSERT INTO \"APP\".\"TRAVELLOG\" (\"RFID\",\"CHECKIN\",\"CHECKOUT\",\"TRAVELTIME\") VALUES ('" + rfid + "','" + checkIn + "','" + current + "','0')");
+                stmt.executeUpdate("INSERT INTO \"APP\".\"TRAVELLOG\" (\"RFID\",\"CHECKIN\",\"CHECKOUT\",\"TRAVELTIME\") VALUES ('" + rfid + "','" + checkIn + "','" + current + "','" + diffInMinutes + "')");
                 stmt.executeUpdate("UPDATE \"APP\".\"USER\" SET \"STATUS\" = '" + mySTATUS + "' WHERE RFID = '" + rfid + "'");
             }
 

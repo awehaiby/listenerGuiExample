@@ -58,10 +58,14 @@ public class userListener {
                 if (db.login(
                         rfid,
                         pw)) {
+                    currentLoggedInRfid=rfid;
                     MyMainGui.setVisible(false);
                     MyMainGui.clear();
                     MyMainGui.setVisible(false);
                     MyUserGui.setVisible(true);
+                    int credits = db.get_credits(currentLoggedInRfid);
+                    MyUserGui.setText(credits);
+                    db.makeUserLogTable(rfid, MyUserGui.getModel());
                 } else {
                     JOptionPane.showMessageDialog(
                             null, "Wrong login details", "Error", JOptionPane.ERROR_MESSAGE);
