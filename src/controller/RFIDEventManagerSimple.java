@@ -32,7 +32,7 @@ import protocol.Packet;
 public class RFIDEventManagerSimple implements FrameEventListener {
 
     private SerialTransceiver transmitter;
-    private String portNumber = "/dev/cu.usbserial-000012FD";//
+    private String portNumber = "/dev/cu.usbserial-000013FA";//
     private String source = "02";
     private String destination = "01";
     private Packet packet;

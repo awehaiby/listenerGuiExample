@@ -209,7 +209,7 @@ public class dbController {
         //sql query set status by rfid (status)
         //this.status = status;
         int credits = get_credits(rfid);
-        setCredits(rfid,credits);
+        setCredits(rfid, credits);
         try {
             Connection con = DriverManager.getConnection(host, uName, uPass);
             Statement stmt;
@@ -244,6 +244,31 @@ public class dbController {
         }
 
         return status;
+    }
+
+    boolean login(String firstName, String lastName, String password, int admin) {
+        String rfid = getRfidByName(firstName, lastName);
+        boolean returner = false;
+        try {
+            Connection con = DriverManager.getConnection(host, uName, uPass);
+
+            Statement stmt1;
+            stmt1 = (Statement) con.createStatement();
+            String sql = "select * from \"APP\".\"USER\" where \"RFID\" = '" + rfid + "'";
+
+            ResultSet rs = stmt1.executeQuery(sql);
+            while (rs.next()) {
+                if (admin == Integer.parseInt(rs.getString("ADMIN"))) {
+                    if (password.equals(rs.getString("PASSWORD"))) {
+                        returner=true;
+                    }
+                }
+            }
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+
+        }
+        return returner;
     }
 }
 
