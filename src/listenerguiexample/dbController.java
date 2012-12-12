@@ -29,31 +29,6 @@ public class dbController {
 
     dbController() {//connects to database
     }
-    /*
-     public String getRfidByName(String name, String sirname) {
-     try {
-     Connection con = DriverManager.getConnection(host, uName, uPass);
-
-     Statement stmt1;
-     stmt1 = (Statement) con.createStatement();
-     String sql = "select * from \"APP\".\"USER\" where \"FIRSTNAME\" = '" + name + "' AND \"LASTNAME\" = '" + sirname + "'";
-
-     ResultSet rs = stmt1.executeQuery(sql);
-     String fn = "";
-     while (rs.next()) {
-     fn = rs.getString("RFID");
-     }
-     return fn;
-
-     } catch (SQLException err) {
-     System.out.println(err.getMessage());
-
-     }
-     return "";
-
-     //return sql query get rfid by name;
-     }
-     */
 
     public boolean exists(String rfid) {
         boolean returner = false;
