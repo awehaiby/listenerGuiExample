@@ -40,7 +40,7 @@ public class userListener {
                 JOptionPane.showMessageDialog(
                         null, "Submit positive amount", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                int credits = db.get_credits(currentLoggedInRfid) + addCredits;
+                int credits = db.getCredits(currentLoggedInRfid) + addCredits;
                 db.setCredits(currentLoggedInRfid,
                         credits);
                 MyUserGui.setText(credits);
@@ -63,7 +63,7 @@ public class userListener {
                     MyMainGui.clear();
                     MyMainGui.setVisible(false);
                     MyUserGui.setVisible(true);
-                    int credits = db.get_credits(currentLoggedInRfid);
+                    int credits = db.getCredits(currentLoggedInRfid);
                     MyUserGui.setText(credits);
                     db.makeUserLogTable(rfid, MyUserGui.getModel());
                 } else {

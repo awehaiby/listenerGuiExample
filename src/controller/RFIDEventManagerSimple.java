@@ -165,7 +165,7 @@ public class RFIDEventManagerSimple implements FrameEventListener {
         String command = packet.getCommandStatus();
         String returnMessage = "";
         if (command.equals("01")) {
-            int creds = db.get_credits(packet.getData());
+            int creds = db.getCredits(packet.getData());
             scanned = packet.getData();
             Timer timer = new Timer(4000, new ActionListener() {
                 @Override
@@ -188,12 +188,12 @@ public class RFIDEventManagerSimple implements FrameEventListener {
             scanned = "";
         } else if (command.equals("03")) {
             if (scanned.length() > 0) {
-                int creds = db.get_credits(scanned);
+                int creds = db.getCredits(scanned);
                 if (creds > 0) {
                     boolean status = db.setStatus(scanned, !db.getStatus(scanned));
                     if (status) {
                         returnMessage = String.format("%-16s", "credit:" + creds);
-                        sendRFIDResponse("04", returnMessage);//checked out
+                        sendRFIDResponse("04", returnMessage);//checked in
 
                     } else {
                         returnMessage = String.format("%-16s", "credit:" + creds);

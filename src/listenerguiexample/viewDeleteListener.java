@@ -52,7 +52,10 @@ public class viewDeleteListener {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            db.deleteUser(myViewDeleteGui.getRfidString());
+            int reply = JOptionPane.showConfirmDialog(null, "Are you sure?", "Delete user", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            db.deleteUser(myViewDeleteGui.getRfidString());          
+        }
         }
     }
 
@@ -81,7 +84,7 @@ public class viewDeleteListener {
         public void actionPerformed(ActionEvent ae) {
             String rfid = myViewDeleteGui.getRfidString();
 
-            int credits = db.get_credits(rfid);
+            int credits = db.getCredits(rfid);
             boolean status = db.getStatus(rfid);
             System.out.println(rfid + " " + credits + " " + status);
             if (db.exists(rfid)) {
