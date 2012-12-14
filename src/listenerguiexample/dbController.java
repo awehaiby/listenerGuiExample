@@ -80,8 +80,7 @@ public class dbController {
     }
 
     public void setCredits(String rfid, int cash) {
-        //prisen er 0.5kr/1minut og metret runder ned
-        int minutes = cash * 2;
+        int minutes = cash;
         try {
             Connection con = DriverManager.getConnection(host, uName, uPass);
             Statement stmt1;
@@ -96,7 +95,11 @@ public class dbController {
         }
     }
 
-    public void deleteUser(String rfid) {
+    public boolean deleteUser(String rfid) {
+        boolean returner = false;
+        if (!isAdmin(rfid)) {//admins cant delete other admins
+            returner = true;
+        }
         try {
             Connection con = DriverManager.getConnection(host, uName, uPass);
             Statement stmt;
@@ -106,6 +109,7 @@ public class dbController {
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
+        return returner;
     }
 
     boolean createUser(String rfid, String fn, String ln, String pw) {
@@ -134,7 +138,7 @@ public class dbController {
         }
         return returner;
     }
-    
+
     public void makeUserLogTable(String rfid, DefaultTableModel model) {
         for (int i = model.getRowCount() - 1; i >= 0; i--) {
             model.removeRow(i);

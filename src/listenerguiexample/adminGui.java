@@ -33,6 +33,7 @@ public class adminGui extends javax.swing.JFrame {
         logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 102, 204));
 
         createUser.setText("create user");
 

@@ -4,19 +4,23 @@
  */
 package controller;
 
+import gnu.io.CommPortIdentifier;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.TimerTask;
-import protocol.TcsPacket;
-import serial.FrameEvent;
-import serial.FrameEventListener;
-import serial.SerialTransceiver;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.TooManyListenersException;
+import java.util.Vector;
 import javax.swing.Timer;
 import listenerguiexample.CreateUserListener;
 import listenerguiexample.dbController;
 import listenerguiexample.mainGui;
 import protocol.Packet;
+import protocol.TcsPacket;
+import serial.FrameEvent;
+import serial.FrameEventListener;
+import serial.SerialTransceiver;
 
 /**
  * The
@@ -44,7 +48,26 @@ public class RFIDEventManagerSimple implements FrameEventListener {
     public RFIDEventManagerSimple(mainGui main, dbController db) {
         this.db = db;
         this.main = main;
+        portNumber = listPorts();
+    }
 
+    private String listPorts() {
+        ArrayList<String> ports = new ArrayList<String>();
+        ports.add("No terminal");
+        java.util.Enumeration<CommPortIdentifier> portEnum = CommPortIdentifier.getPortIdentifiers();
+        while (portEnum.hasMoreElements()) {
+            CommPortIdentifier portIdentifier = portEnum.nextElement();
+            ports.add(portIdentifier.getName());
+
+            //System.out.println(portIdentifier.getName()  +  " - " +  getPortTypeName(portIdentifier.getPortType()) );
+        }
+        String[] portsArray = new String[ports.size()];
+        ports.toArray(portsArray);
+        String returner = main.getSerialPort(portsArray);
+        if (returner.equals("No terminal")) {
+            returner = "";
+        }
+        return returner;
     }
 
     public void setCreateUserListener(CreateUserListener myCreateUserListener) {
@@ -152,6 +175,7 @@ public class RFIDEventManagerSimple implements FrameEventListener {
         System.out.println("           data:    [" + packet.getData() + "]");
         //TO DO Process request and send response
         if (main.isVisible()) {
+            main.showTerminalInput();
             processRequestMode1(packet);
         } else {
             processRequestMode2(packet);
@@ -165,8 +189,8 @@ public class RFIDEventManagerSimple implements FrameEventListener {
         String command = packet.getCommandStatus();
         String returnMessage = "";
         if (command.equals("01")) {
-            int creds = db.getCredits(packet.getData());
             scanned = packet.getData();
+            int creds = db.getCredits(scanned);
             Timer timer = new Timer(4000, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
@@ -202,7 +226,7 @@ public class RFIDEventManagerSimple implements FrameEventListener {
                     }
                     //sendRFIDResponse("04", returnMessage);
                 } else {
-                        returnMessage = String.format("%-16s", "credit:" + creds);
+                    returnMessage = String.format("%-16s", "credit:" + creds);
                     sendRFIDResponse("03", returnMessage);
                 }
             }

@@ -53,9 +53,12 @@ public class viewDeleteListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
             int reply = JOptionPane.showConfirmDialog(null, "Are you sure?", "Delete user", JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION) {
-            db.deleteUser(myViewDeleteGui.getRfidString());          
-        }
+            if (reply == JOptionPane.YES_OPTION) {
+                if (!db.deleteUser(myViewDeleteGui.getRfidString())) {
+                    JOptionPane.showMessageDialog(
+                            myViewDeleteGui, "Cannot delete admins", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
     }
 
@@ -94,10 +97,9 @@ public class viewDeleteListener {
                 } else {
                     myViewDeleteGui.setText("Travel minutes: " + credits + " Checked out");
                 }
-                //System.out.println("hello" + name + " " + sirname);
             } else {
                 JOptionPane.showMessageDialog(
-                        myViewDeleteGui, "user does not exist", "Error", JOptionPane.ERROR_MESSAGE);
+                        myViewDeleteGui, "User does not exist", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

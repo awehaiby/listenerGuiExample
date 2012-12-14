@@ -39,6 +39,7 @@ public class userGui extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 102, 204));
 
         logout.setText("logout");
 
@@ -68,6 +69,7 @@ public class userGui extends javax.swing.JFrame {
         saldo.setVerifyInputWhenFocusTarget(false);
         jScrollPane2.setViewportView(saldo);
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("insert cash:");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());

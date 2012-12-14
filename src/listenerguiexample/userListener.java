@@ -26,9 +26,9 @@ public class userListener {
 
         this.MyMainGui = MyMainGui;
         //add listeners
-        MyUserGui.addOkListener(new okButtonListener());
+        this.MyUserGui.addOkListener(new okButtonListener());
         this.MyMainGui.addLoginListener(new loginButtonListener());
-        MyUserGui.addLogoutListener(new logoutButtonListener());
+        this.MyUserGui.addLogoutListener(new logoutButtonListener());
     }
 
     class okButtonListener implements ActionListener {
@@ -40,7 +40,7 @@ public class userListener {
                 JOptionPane.showMessageDialog(
                         null, "Submit positive amount", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                int credits = db.getCredits(currentLoggedInRfid) + addCredits;
+                int credits = db.getCredits(currentLoggedInRfid) + addCredits + addCredits;
                 db.setCredits(currentLoggedInRfid,
                         credits);
                 MyUserGui.setText(credits);
@@ -58,7 +58,7 @@ public class userListener {
                 if (db.login(
                         rfid,
                         pw)) {
-                    currentLoggedInRfid=rfid;
+                    currentLoggedInRfid = rfid;
                     MyMainGui.setVisible(false);
                     MyMainGui.clear();
                     MyMainGui.setVisible(false);
