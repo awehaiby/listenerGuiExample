@@ -190,22 +190,26 @@ public class RFIDEventManagerSimple implements FrameEventListener {
         String returnMessage = "";
         if (command.equals("01")) {
             scanned = packet.getData();
-            int creds = db.getCredits(scanned);
-            Timer timer = new Timer(4000, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent ae) {
-                    scanned = "";
-                    sendRFIDResponse("00", "");//checked out
+            if (db.exists(scanned)) {
+                int creds = db.getCredits(scanned);
+                Timer timer = new Timer(4000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        scanned = "";
+                        sendRFIDResponse("00", "");//checked out
+                    }
+                });
+                timer.setRepeats(false); // Only execute once
+                timer.start(); // Go go go!
+                returnMessage = String.format("%-16s", "credit:" + creds);
+                boolean status = db.getStatus(scanned);
+                if (status) {
+                    sendRFIDResponse("01", returnMessage);//checked in
+                } else {
+                    sendRFIDResponse("02", returnMessage);//checked out
                 }
-            });
-            timer.setRepeats(false); // Only execute once
-            timer.start(); // Go go go!
-            returnMessage = String.format("%-16s", "credit:" + creds);
-            boolean status = db.getStatus(scanned);
-            if (status) {
-                sendRFIDResponse("01", returnMessage);//checked in
             } else {
-                sendRFIDResponse("02", returnMessage);//checked out
+                scanned = "";
             }
         } else if (command.equals("02")) {
             sendRFIDResponse("00", "");
@@ -235,9 +239,6 @@ public class RFIDEventManagerSimple implements FrameEventListener {
     }
 
     private void processRequestMode2(Packet packet) {//interference with gui
-        //THIS CODE IS FOR SIMPLE DEMONSTRATION ONLY.
-        //IT IS DIFFICULT TO MAINTAIN AND TEST.
-        //IT SHOULD BE REPLACED BY EG. COMMAND PATTERN IN THE LATER DESIGN
         String command = packet.getCommandStatus();
         String returnMessage = "";
 
