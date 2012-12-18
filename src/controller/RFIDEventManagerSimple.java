@@ -5,17 +5,12 @@
 package controller;
 
 import gnu.io.CommPortIdentifier;
-import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.TooManyListenersException;
-import java.util.Vector;
 import javax.swing.Timer;
-import listenerguiexample.CreateUserListener;
-import listenerguiexample.dbController;
-import listenerguiexample.mainGui;
+import gui.mainGui;
 import protocol.Packet;
 import protocol.TcsPacket;
 import serial.FrameEvent;
@@ -31,7 +26,7 @@ import serial.SerialTransceiver;
  * pattern.
  *
  * @version 16/02/10
- * @author ibr
+ * @author ibr, johannes
  */
 public class RFIDEventManagerSimple implements FrameEventListener {
 
